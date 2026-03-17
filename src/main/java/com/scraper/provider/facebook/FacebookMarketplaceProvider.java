@@ -30,7 +30,7 @@ public class FacebookMarketplaceProvider implements MarketplaceProvider {
 
     private static final String LISTING_SELECTOR = "a[href*='/marketplace/item/']";
     private static final Pattern ITEM_ID_PATTERN = Pattern.compile("/marketplace/item/(\\d+)");
-    // Accepts: "$450", "A$1,200", "AU$300", "£200", "€300", "Free", "1200"
+    // accepts: "$450", "A$1,200", "AU$300", "£200", "€300", "Free", "1200"
     private static final Pattern PRICE_PATTERN =
             Pattern.compile("^(Free|[A-Z]{0,2}[$£€¥₹]\\s*[\\d,]+|[$£€¥₹][\\d,]+|[\\d,]+)$",
                     Pattern.CASE_INSENSITIVE);

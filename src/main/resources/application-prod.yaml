@@ -1,10 +1,10 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    # Set via environment variables:
+    # Set in ENV
     # SPRING_DATASOURCE_URL=jdbc:postgresql://host:5432/scraper
-    # SPRING_DATASOURCE_USERNAME=...
-    # SPRING_DATASOURCE_PASSWORD=...
+    # SPRING_DATASOURCE_USERNAME=
+    # SPRING_DATASOURCE_PASSWORD=
 
   jpa:
     hibernate:
