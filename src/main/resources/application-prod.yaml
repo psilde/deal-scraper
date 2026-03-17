@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    # Set via environment variables:
+    # SPRING_DATASOURCE_URL=jdbc:postgresql://host:5432/scraper
+    # SPRING_DATASOURCE_USERNAME=...
+    # SPRING_DATASOURCE_PASSWORD=...
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+logging:
+  level:
+    root: INFO
+    com.scraper: INFO

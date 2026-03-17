@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: marketplace-scraper
+  profiles:
+    default: dev
+  config:
+    import: optional:file:./local.properties
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+marketplace:
+  enabled: true
+  scrape-interval-minutes: 30
+  max-results-per-search: 200
+
+  facebook:
+    enabled: true
+    timeout-seconds: 30
+    retry-max-attempts: 3
+    retry-backoff-millis: 1000
+    stub-mode: false
+    api-base-url: "https://www.facebook.com/marketplace/perth/"
+    max-scroll-attempts: 20
