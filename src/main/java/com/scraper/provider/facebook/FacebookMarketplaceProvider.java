@@ -38,15 +38,18 @@ public class FacebookMarketplaceProvider implements MarketplaceProvider {
     private final MarketplaceProperties properties;
     private final PlaywrightBrowserManager browserManager;
     private final ObjectMapper objectMapper;
+    private final com.scraper.service.ScrapeMetricsCollector metricsCollector;
 
     public FacebookMarketplaceProvider(
             MarketplaceProperties properties,
             PlaywrightBrowserManager browserManager,
-            ObjectMapper objectMapper
+            ObjectMapper objectMapper,
+            com.scraper.service.ScrapeMetricsCollector metricsCollector
     ) {
         this.properties = properties;
         this.browserManager = browserManager;
         this.objectMapper = objectMapper;
+        this.metricsCollector = metricsCollector;
     }
 
     @Override
@@ -129,8 +132,10 @@ public class FacebookMarketplaceProvider implements MarketplaceProvider {
         // facebook virtualises the list — accumulate by externalId across scrolls to avoid losing off-screen items
         Map<String, RawMarketplaceListing> accumulated = new LinkedHashMap<>();
         int stagnantCycles = 0;
+        int scrollIterations = 0;
 
         for (int i = 0; i < maxScrollAttempts; i++) {
+            scrollIterations = i + 1;
             int prevSize = accumulated.size();
 
             List<RawMarketplaceListing> batch = extractListings(page, query);
@@ -163,7 +168,8 @@ public class FacebookMarketplaceProvider implements MarketplaceProvider {
             page.waitForTimeout(3000);
         }
 
-        log.info("fb.scrape.done label=\"{}\" totalUnique={}", label, accumulated.size());
+        metricsCollector.recordScrollIterations(scrollIterations);
+        log.info("fb.scrape.done label=\"{}\" totalUnique={} scrollIterations={}", label, accumulated.size(), scrollIterations);
         return new ArrayList<>(accumulated.values());
     }
 

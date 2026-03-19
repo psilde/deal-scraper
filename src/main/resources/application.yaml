@@ -19,7 +19,7 @@ springdoc:
 marketplace:
   enabled: true
   scrape-interval-minutes: 30
-  max-results-per-search: 200
+  max-results-per-search: 1000
 
   facebook:
     enabled: true
